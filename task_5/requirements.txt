@@ -1,0 +1,4 @@
+# Simple Flask app for template-based exports
+Flask>=2.3.0
+Flask-SQLAlchemy>=3.0.0
+requests>=2.31.0

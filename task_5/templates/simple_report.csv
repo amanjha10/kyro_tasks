@@ -1,0 +1,4 @@
+Camera ID,Location,Model,Status,Last Maintenance
+{% for camera in cameras -%}
+{{ camera.camera_id }},{{ camera.location }},{{ camera.model }},{{ camera.status }},{{ camera.last_maintenance }}
+{% endfor %}
