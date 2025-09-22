@@ -1,0 +1,168 @@
+{
+  "event_types": {
+    "frame_sampled": {
+      "description": "Triggered when a frame is successfully sampled from video",
+      "example": {
+        "event": "frame_sampled",
+        "timestamp": "2025-09-22T10:15:30.123Z",
+        "source": {
+          "system": "frame-analyzer",
+          "version": "1.2.0",
+          "instance_id": "fa-prod-01",
+          "region": "us-west-2"
+        },
+        "data": {
+          "session_id": "sess_abc123",
+          "video_id": "vid_789",
+          "frame_id": "frame_452",
+          "frame_number": 452,
+          "timestamp_in_video": 15.067,
+          "sampling_strategy": {
+            "type": "adaptive",
+            "interval": 2.5,
+            "parameters": {
+              "motion_threshold": 0.3,
+              "quality_threshold": 0.8
+            }
+          },
+          "frame_metadata": {
+            "width": 1920,
+            "height": 1080,
+            "format": "jpeg",
+            "size_bytes": 245760,
+            "quality_score": 0.92
+          },
+          "cost_metrics": {
+            "processing_time_ms": 45,
+            "compute_units": 0.02,
+            "api_calls": 1
+          }
+        },
+        "meta": {
+          "request_id": "req_56789",
+          "correlation_id": "corr_abc123",
+          "retries": 0,
+          "priority": "medium",
+          "schema_version": "1.0.0"
+        },
+        "signature": "sha256=a1b2c3d4e5f6..."
+      }
+    },
+    "incident_detected": {
+      "description": "Triggered when an incident or anomaly is detected in a frame",
+      "example": {
+        "event": "incident_detected",
+        "timestamp": "2025-09-22T10:16:45.789Z",
+        "source": {
+          "system": "incident-detector",
+          "version": "2.1.3",
+          "instance_id": "id-prod-02",
+          "region": "us-west-2"
+        },
+        "data": {
+          "session_id": "sess_abc123",
+          "video_id": "vid_789",
+          "frame_id": "frame_455",
+          "incident_id": "inc_def456",
+          "incident_type": "person_detected",
+          "confidence": 0.94,
+          "severity": "high",
+          "detection_details": {
+            "objects": [
+              {
+                "type": "person",
+                "confidence": 0.94,
+                "bounding_box": {
+                  "x": 120,
+                  "y": 45,
+                  "width": 180,
+                  "height": 155
+                },
+                "attributes": {
+                  "age_estimate": "adult",
+                  "clothing_color": "blue"
+                }
+              }
+            ],
+            "scene_context": {
+              "location": "restricted_area",
+              "time_of_day": "night",
+              "weather": "clear"
+            }
+          },
+          "sampling_strategy": {
+            "type": "motion_based",
+            "interval": 1.0,
+            "parameters": {
+              "motion_threshold": 0.2
+            }
+          },
+          "cost_metrics": {
+            "processing_time_ms": 156,
+            "compute_units": 0.08,
+            "api_calls": 3
+          }
+        },
+        "meta": {
+          "request_id": "req_67890",
+          "correlation_id": "corr_abc123",
+          "retries": 0,
+          "priority": "high",
+          "schema_version": "1.0.0"
+        },
+        "signature": "sha256=b2c3d4e5f6g7..."
+      }
+    },
+    "processing_completed": {
+      "description": "Triggered when video processing session is completed",
+      "example": {
+        "event": "processing_completed",
+        "timestamp": "2025-09-22T10:25:12.456Z",
+        "source": {
+          "system": "video-processor",
+          "version": "1.5.2",
+          "instance_id": "vp-prod-03",
+          "region": "us-west-2"
+        },
+        "data": {
+          "session_id": "sess_abc123",
+          "video_id": "vid_789",
+          "processing_summary": {
+            "total_frames": 1800,
+            "sampled_frames": 72,
+            "incidents_detected": 3,
+            "processing_duration_seconds": 145.7,
+            "success_rate": 0.99
+          },
+          "sampling_strategy": {
+            "type": "adaptive",
+            "interval": 2.5,
+            "parameters": {
+              "motion_threshold": 0.3,
+              "quality_threshold": 0.8
+            }
+          },
+          "cost_metrics": {
+            "total_processing_time_ms": 145700,
+            "total_compute_units": 2.45,
+            "total_api_calls": 75,
+            "estimated_cost_usd": 0.12
+          },
+          "output_artifacts": {
+            "summary_report_url": "https://storage.example.com/reports/sess_abc123.json",
+            "key_frames_url": "https://storage.example.com/frames/sess_abc123/",
+            "incident_clips_url": "https://storage.example.com/clips/sess_abc123/"
+          }
+        },
+        "meta": {
+          "request_id": "req_78901",
+          "correlation_id": "corr_abc123",
+          "retries": 0,
+          "priority": "low",
+          "schema_version": "1.0.0"
+        },
+        "signature": "sha256=c3d4e5f6g7h8..."
+      }
+    }
+  }
+}
