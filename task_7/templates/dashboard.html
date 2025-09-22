@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - User Impersonation System{% endblock %}
+
+{% block content %}
+<h2>{{ message }}</h2>
+
+{% if impersonation_info %}
+<div class="info">
+    <h4>🎭 Impersonation Active</h4>
+    <p>{{ impersonation_info.message }}</p>
+    <p><strong>Admin:</strong> {{ impersonation_info.admin_user }}</p>
+    <p><strong>Acting as:</strong> {{ impersonation_info.impersonated_user }}</p>
+    
+    <form method="post" action="/stop-impersonation" style="margin-top: 15px;">
+        <button type="submit" class="danger">Stop Impersonation</button>
+    </form>
+</div>
+{% endif %}
+
+<div class="info">
+    <h4>User Information</h4>
+    <p><strong>ID:</strong> {{ user_info.id }}</p>
+    <p><strong>Username:</strong> {{ user_info.username }}</p>
+    <p><strong>Email:</strong> {{ user_info.email }}</p>
+    <p><strong>Admin:</strong> {{ 'Yes' if user_info.is_admin else 'No' }}</p>
+    <p><strong>Last Login:</strong> {{ user_info.last_login }}</p>
+</div>
+
+{% if user_info.is_admin and not impersonation_info %}
+<div class="sample-users">
+    <h4>🔐 Admin Actions</h4>
+    <p>As an administrator, you can:</p>
+    <div class="links">
+        <a href="/users">View All Users</a>
+        <a href="/activity-log">View Activity Log</a>
+    </div>
+</div>
+{% endif %}
+
+<div class="links">
+    <a href="/">Home</a>
+    <form method="post" action="/logout" style="display: inline;">
+        <button type="submit" class="danger">Logout</button>
+    </form>
+</div>
+{% endblock %}

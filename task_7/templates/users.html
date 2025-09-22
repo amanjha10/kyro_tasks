@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Users - User Impersonation System{% endblock %}
+
+{% block content %}
+<h2>All Users ({{ total }} total)</h2>
+
+<div class="info">
+    <p>As an administrator, you can impersonate any regular user by clicking the "Impersonate" button.</p>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Created</th>
+            <th>Last Login</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td><strong>{{ user.username }}</strong></td>
+            <td>{{ user.email }}</td>
+            <td>
+                {% if user.is_admin %}
+                    <span style="color: #dc3545; font-weight: bold;">Admin</span>
+                {% else %}
+                    <span style="color: #28a745;">User</span>
+                {% endif %}
+            </td>
+            <td>{{ user.created_at }}</td>
+            <td>{{ user.last_login }}</td>
+            <td>
+                {% if not user.is_admin %}
+                <form method="post" action="/impersonate" style="display: inline;">
+                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                    <button type="submit" class="success" style="padding: 6px 12px; font-size: 12px;">
+                        Impersonate
+                    </button>
+                </form>
+                {% else %}
+                <span style="color: #666; font-size: 12px;">Cannot impersonate admin</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="links">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/activity-log">Activity Log</a>
+    <a href="/">Home</a>
+</div>
+{% endblock %}

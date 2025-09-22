@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Error - User Impersonation System{% endblock %}
+
+{% block content %}
+<div class="error">
+    <h3>❌ Error</h3>
+    <p>{{ error_message }}</p>
+</div>
+
+<div class="links">
+    <a href="{{ back_url or '/' }}">{{ back_text or 'Go Back' }}</a>
+    <a href="/">Home</a>
+</div>
+{% endblock %}

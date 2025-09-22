@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Activity Log - User Impersonation System{% endblock %}
+
+{% block content %}
+<h2>Impersonation Activity Log</h2>
+
+<div class="info">
+    <p>This log shows all impersonation activities. Total activities: {{ total }}</p>
+</div>
+
+{% if activities %}
+<table>
+    <thead>
+        <tr>
+            <th>Timestamp</th>
+            <th>Admin User</th>
+            <th>Action</th>
+            <th>Target User</th>
+            <th>IP Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for activity in activities %}
+        <tr>
+            <td>{{ activity.timestamp }}</td>
+            <td><strong>{{ activity.admin_user }}</strong></td>
+            <td>
+                {% if activity.action == 'start_impersonation' %}
+                    <span style="color: #007bff;">🎭 Started Impersonation</span>
+                {% elif activity.action == 'end_impersonation' %}
+                    <span style="color: #28a745;">✅ Ended Impersonation</span>
+                {% else %}
+                    {{ activity.action }}
+                {% endif %}
+            </td>
+            <td>{{ activity.impersonated_user }}</td>
+            <td><code>{{ activity.ip_address }}</code></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<div class="info">
+    <p>No impersonation activities recorded yet.</p>
+</div>
+{% endif %}
+
+<div class="links">
+    <a href="/dashboard">Dashboard</a>
+    <a href="/users">View Users</a>
+    <a href="/">Home</a>
+</div>
+{% endblock %}
